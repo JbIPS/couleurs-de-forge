@@ -1,0 +1,106 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<html>
+<head>
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+  https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+  * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+  * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+  * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+  * Enable inline JS: add 'unsafe-inline' to default-src
+-->
+<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+<meta name="format-detection" content="telephone=no">
+<meta charset="UTF-8">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+<title>Visite de la forge</title>
+<link rel="stylesheet" href="css/index.css" media="screen" charset="utf-8">
+</head>
+<body>
+  <div>
+    <a href="#" class="topnav previous onStage"><img src="img/previous.png"></a>
+    <a href="#" class="topnav next onStage"><img src="img/next.png"></a>
+    <div id="home"> 
+      <h1>Couleurs de forge</h1>
+      <a href="#atelier" class="stage">
+        <img src="img/atelier.png" alt="Atelier">
+        <p>L'atelier</p>
+      </a>
+      <a href="#forge" class="stage">
+        <img src="img/forge.png" alt="forge">
+        <p>La forge de Gofannon</p>
+      </a>
+      <a href="#salle" class="stage">
+        <img src="img/salle.png" alt="salle">
+        <p>La salle</p>
+      </a>
+      <a href="#" id="closeBtn"><img src="img/exit.png"></a>
+    </div>
+    <div id="atelier"></div>
+    <div id="forge"></div>
+    <div id="salle"></div>
+    <a href="#" id="camBtn" class="onStage"><img src="img/photo-camera.png"></a>
+    <a href="#" id="exitBtn" class="onStage"><img src="img/exit.png"></a>
+
+    <div id="player">
+      <video id="video" autoplay></video>
+      <div class="close"></div>
+    </div>
+    <div id="reader">
+      <div id="content">
+        <div id="slider">
+        </div>
+      </div>
+      <audio id="audio"></audio>
+      <div class="close"></div>
+      <a href="#" class="previous"><img src="img/previous.png"></a>
+      <a href="#" class="next"><img src="img/next.png"></a>
+    </div>
+    <div id="overlay" class="overlay"></div>
+    <div id="mailPopin">
+      <h3>Merci pour votre visite</h3>
+      <p>Pour récupérer les souvenirs de votre visite, merci de renseigner votre adresse e-mail dans le champs ci-dessous.</p>
+      <!--<p id="validationFail"></p>-->
+      <form>
+        <input id='email' type="text" placeholder="adresse e-mail">
+        <button id="returnBtn" type="button">Retour à la visite</button>
+        <button id="endBtn">Finir à la visite</button>
+      </form>
+    </div>
+    <div id="end">
+      <h1>Merci de votre visite !</h1>
+      <p><span>Vos photos ont bien été envoyées.</span> Vous pouvez rendre la tablette à l'accueil.</p>
+      <div class="overlay">
+        <img src="img/largeSpinner.gif">
+     </div>
+    </div>
+  </div>
+  <template id="image_tile">
+    <div class="tile">
+      <img/>
+      <p></p>
+    </div>
+  </template>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/data.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

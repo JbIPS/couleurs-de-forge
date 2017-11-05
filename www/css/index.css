@@ -1,0 +1,319 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:527px;
+    margin:0px;
+    padding:0px;
+    width:100%;
+    overflow-x: hidden;
+}
+
+body > div {
+  overflow: hidden;
+  height: 100%;
+}
+
+#home, #end {
+  background-color: black;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  color: white;
+}
+
+#end {
+  visibility: hidden;
+}
+
+#end p {
+  font-size: 27px;
+  text-align: center;
+  width: 80%;
+  margin: 100px auto;
+}
+
+#end span {
+  display: none;
+}
+
+#end img {
+  position: relative;
+  top: 87px;
+  left: 200px;
+}
+h1 {
+  color: white;
+  font-size: 72px;
+  text-align: center;
+}
+
+.stage {
+  height: 200px;
+  display: block;
+  width: 280px;
+  background-color: black;
+  border: 5px double white;
+  margin: 30px 25px;
+  float: left;
+  text-decoration: none;
+}
+
+.stage > img {
+  height: 100%;
+  width: 100%;
+}
+
+.stage > p {
+  color: white;
+  text-align: center;
+  font-size: 25px;
+  text-decoration: none;
+}
+
+#atelier, #forge, #salle {
+  visibility: hidden;
+  height: 100%;
+  position: relative;
+  transition: left 1s ease-out;
+  left: 0;
+  background-size: cover;
+}
+
+/* Set other background */
+#atelier.bkg2 {
+  background-image: url(../img/bkg2.jpg);
+  background-repeat: no-repeat;
+  width: 2048px;
+}
+
+#forge {
+  background-image: url(../img/forge.png);
+  background-repeat: no-repeat;
+}
+
+#salle {
+  background-image: url(../img/salle.png);
+  background-repeat: no-repeat;
+}
+
+#camBtn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 100;
+  visibility: hidden;
+}
+
+#closeBtn, #exitBtn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
+  width: 50px;
+}
+
+#closeBtn > img, #exitBtn > img {
+  width: 100%;
+}
+
+#mailPopin {
+  visibility: hidden;
+  background-color: black;
+  border: 1px solid white;
+  box-shadow: 5px 5px 9px 1px rgba(0,0,0,.7);
+  position: absolute;
+  left: 225px;
+  top: 200px;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  padding: 15px;
+  width: 60%;
+}
+
+#mailPopin input {
+  width: 90%;
+}
+
+#mailPopin button {
+  position: relative;
+  margin-top: 18px;
+}
+
+#returnBtn {
+  left: -189px;
+}
+
+#endBtn {
+  right: -189px;
+}
+
+.key {
+  width: 50px;
+  height: 50px;
+  background: url(../img/circle.png);
+  background-size: cover;
+  position: absolute;
+}
+
+.onStage {
+  visibility: hidden;
+}
+
+#key1 {
+  top: 345px;
+  left: 132px;
+}
+
+#key2 {
+  top: 152px;
+  left: 471px;
+}
+
+#player, #reader {
+  visibility: hidden;
+  width: 82.3%;
+  height: 90%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+	-webkit-backface-visibility: hidden;
+  background: black;
+}
+
+.close {
+  width: 50px;
+  height: 50px;
+  background: url(../img/close.png);
+  background-size: cover;
+  position: absolute;
+  top: -5px;
+  right: -70px;
+}
+
+#player.visible, #reader.visible {
+  visibility: visible;
+}
+
+.visible ~ .overlay {
+	opacity: 1;
+	visibility: visible;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0;
+  background: rgba(80,80,80,0.8);
+  transition: all 0.3s;
+}
+
+#player video, #content {
+  width: 100%;
+  height: 100%;
+  transition: all .8s;
+  opacity: 0;
+  -webkit-transform: scale(0.7);
+  box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+}
+
+#content {
+  color: white;
+  padding: 2%;
+  width: 96%;
+  height: 92%;
+  text-align: left;
+  overflow: hidden;
+}
+
+#content > div {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  position: relative;
+  transition: left .5s ease-out;
+  left: 0;
+}
+
+.previous, .next {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  background: black;
+  height: 100%;
+  padding: 21% 10px 0 10px;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.topnav {
+  background: transparent;
+  visibility: hidden;
+}
+
+.next {
+  right: 0;
+}
+
+.tile {
+  width: 810px;
+  height: 100%;
+  float: left;
+}
+
+.tile img {
+  max-height: 90%;
+  margin: 0 auto 2% auto;
+  display: block;
+}
+
+.tile p {
+  text-align: center;
+  font-size: 16px;
+}
+
+#player.visible video, #reader.visible #content {
+  opacity: 1;
+  -webkit-transform: scale(1);
+}
+
+/* Portrait layout (default) */
+
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+}
