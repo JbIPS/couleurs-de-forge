@@ -4,3 +4,6 @@ platforms
 plugins
 TODO
 node_modules
+*.sw*
+.vscode
+typings

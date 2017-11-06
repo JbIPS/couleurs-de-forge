@@ -21,9 +21,9 @@
 }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:527px;
@@ -31,6 +31,7 @@ body {
     padding:0px;
     width:100%;
     overflow-x: hidden;
+    background-color: black;
 }
 
 body > div {
@@ -73,6 +74,18 @@ h1 {
   text-align: center;
 }
 
+.locked, .hiddenStage .locked {
+  visibility: hidden;
+}
+div.unlocked {
+  visibility: visible;
+}
+
+.hiddenStage {
+  visibility: hidden; 
+  left: 0;
+}
+
 .stage {
   height: 200px;
   display: block;
@@ -97,7 +110,6 @@ h1 {
 }
 
 #atelier, #forge, #salle {
-  visibility: hidden;
   height: 100%;
   position: relative;
   transition: left 1s ease-out;
@@ -155,6 +167,7 @@ h1 {
   font-size: 15px;
   padding: 15px;
   width: 60%;
+  z-index: 1001;
 }
 
 #mailPopin input {

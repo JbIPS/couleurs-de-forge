@@ -70,8 +70,8 @@ var app = {
       });
 
       var stages = document.getElementsByClassName('stage');
-      for(var i = 0; i < stages.length; i++) {
-        stages.item(i).addEventListener("touchstart", this.launchStage); 
+      for(var idx = 0; idx < stages.length; idx++) {
+        stages.item(idx).addEventListener("touchstart", this.launchStage);
       }
 
       // Init camera
@@ -94,16 +94,18 @@ var app = {
           toHide.item(i).style.visibility = 'hidden';
         }
         document.getElementById(document.location.hash.substr(1))
-        .setAttribute('style', 'visibility: hidden; left: 0');
+        .classList.add("hiddenStage");
         document.getElementById('home').style.visibility = 'visible';
       }
 
       document.getElementById("closeBtn").onclick = function() {
         if(this.style.opacity !== '0') {
           document.getElementById("mailPopin").style.visibility = 'visible';
+          document.getElementById("overlay").style.visibility = 'visible';
           this.style.opacity = '0';
         } else {
           document.getElementById('end').style.visibility = 'hidden';
+          document.getElementById('overlay').style.visibility = 'hidden';
           this.style.opacity = '1';
         }
       };
@@ -113,6 +115,7 @@ var app = {
         document.getElementById('closeBtn').style.opacity = '1';
       };
 
+      // Send mails and reset
       document.getElementById("endBtn").onclick = function(){
         document.getElementById("mailPopin").style.visibility = 'hidden';
         var end = document.getElementById('end');
@@ -146,7 +149,11 @@ var app = {
         xhr.send(JSON.stringify({
           email: emailAddress,
           attachments: attachments
-        })); 
+        }));
+
+        [].forEach.call(document.getElementsByClassName("unlocked"), function(el) {
+          el.classList.remove("unlocked");
+        });
       }
 
       // Init nav
@@ -161,7 +168,10 @@ var app = {
 
       var onMediaLoaded = function(spot, url){
         var elem = document.createElement('div');
+        elem.id = spot.id;
         elem.classList.add('key');
+        if(spot.locked)
+          elem.classList.add('locked');
         elem.style.cssText = "left: " + spot.position.x + "px; top: " + spot.position.y + 'px;';
         elem.addEventListener("touchstart", function(e){
           e.preventDefault();
@@ -174,6 +184,11 @@ var app = {
               break;
             case "slideshow":
               app.playSideshow(spot.content);
+          }
+          if(spot.unlock) {
+            for(var unlocked, i = 0; unlocked = spot.unlock[i]; i++) {
+              document.getElementById(unlocked).classList.add("unlocked");
+            }
           }
         }, false);
         document.getElementById(spot.stageId).appendChild(elem);
@@ -245,7 +260,7 @@ var app = {
       document.getElementById("overlay").addEventListener('touchstart', app.closeReader, false);
 
       var audio = document.getElementById('audio');
-      content = document.getElementById("content");
+      var content = document.getElementById("content");
       content.addEventListener('transitionend', function(e){
         console.log("Start audio", audio.src);
         if(this.currentTime != 0){
@@ -267,7 +282,8 @@ var app = {
             elem.style.visibility = 'visible';
         }
       var targetedStage = event.target.parentElement.href.split('#').pop();
-      document.getElementById(targetedStage).style.visibility = 'visible';
+      //document.getElementById(targetedStage).style.visibility = 'visible';
+      document.getElementById(targetedStage).classList.remove("hiddenStage");
       document.getElementById('home').style.visibility = 'hidden';
       document.location.hash = currentStage = targetedStage;
     },
@@ -328,7 +344,7 @@ var app = {
       contentZone.innerHTML = '';
       contentZone.removeAttribute('style');
       var nav = reader.querySelectorAll(".previous, .next");
-      for(var i = 0, arrow; arrow = nav[i]; i++){
+      for(var a = 0, arrow; arrow = nav[a]; a++){
         arrow.style.visibility = "hidden";
       }
     }
