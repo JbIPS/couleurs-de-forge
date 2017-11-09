@@ -151,9 +151,7 @@ var app = {
           attachments: attachments
         }));
 
-        [].forEach.call(document.getElementsByClassName("unlocked"), function(el) {
-          el.classList.remove("unlocked");
-        });
+        this.start();
       }
 
       // Init nav
@@ -224,6 +222,11 @@ var app = {
         }
       }
 
+      document.querySelector("#welcome button").addEventListener("touchstart", function(){
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("overlay").style.visibility = "hidden";
+      });
+
       // Init player
       app.initPlayer();
       app.initReader();
@@ -233,6 +236,13 @@ var app = {
       //console.log("START");
       // Reset storage
       window.localStorage.removeItem(STORAGE_KEY);
+      // Relock keys
+      [].forEach.call(document.getElementsByClassName("unlocked"), function(el) {
+        el.classList.remove("unlocked");
+      });
+      // Make welcome message visible again
+      document.getElementById("welcome").style = "";
+      document.getElementById("overlay").style = "";
     },
 
     initPlayer: function(){
