@@ -93,8 +93,7 @@ var app = {
         for(var i = 0; i < toHide.length; i++) {
           toHide.item(i).style.visibility = 'hidden';
         }
-        document.getElementById(document.location.hash.substr(1))
-        .classList.add("hiddenStage");
+        document.getElementsByClassName('currentStage').item(0).classList.remove('currentStage');
         document.getElementById('home').style.visibility = 'visible';
       }
 
@@ -223,8 +222,7 @@ var app = {
       }
 
       document.querySelector("#welcome button").addEventListener("touchstart", function(){
-        document.getElementById("welcome").style.visibility = "hidden";
-        document.getElementById("overlay").style.visibility = "hidden";
+        document.getElementById("welcome").classList.remove("visible");
       });
 
       // Init player
@@ -241,8 +239,7 @@ var app = {
         el.classList.remove("unlocked");
       });
       // Make welcome message visible again
-      document.getElementById("welcome").style = "";
-      document.getElementById("overlay").style = "";
+      document.getElementById("welcome").classList.add("visible");
     },
 
     initPlayer: function(){
@@ -293,7 +290,7 @@ var app = {
         }
       var targetedStage = event.target.parentElement.href.split('#').pop();
       //document.getElementById(targetedStage).style.visibility = 'visible';
-      document.getElementById(targetedStage).classList.remove("hiddenStage");
+      document.getElementById(targetedStage).classList.add("currentStage");
       document.getElementById('home').style.visibility = 'hidden';
       document.location.hash = currentStage = targetedStage;
     },

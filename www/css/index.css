@@ -52,6 +52,7 @@ body > div {
   font-size: 1.3em;
   line-height: 1.5em;
   z-index: 1001;
+  visibility: hidden;
 }
 
 #home, #end {
@@ -92,13 +93,17 @@ h1 {
 .locked, .hiddenStage .locked {
   visibility: hidden;
 }
-div.unlocked {
+.currentStage div.unlocked {
   visibility: visible;
 }
 
 .hiddenStage {
   visibility: hidden; 
   left: 0;
+}
+
+.currentStage {
+  visibility: visible;
 }
 
 .stage {
@@ -247,7 +252,7 @@ div.unlocked {
   right: -70px;
 }
 
-#player.visible, #reader.visible {
+#player.visible, #reader.visible, #welcome.visible {
   visibility: visible;
 }
 
@@ -260,6 +265,8 @@ div.unlocked {
   position: fixed;
   width: 100%;
   height: 100%;
+  opacity: 0;
+  visibility: hidden;
   top: 0;
   left: 0;
   z-index: 1000;
