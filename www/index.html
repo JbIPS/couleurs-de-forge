@@ -56,6 +56,11 @@ under the License.
     <div id="atelier" class="hiddenStage"></div>
     <div id="forge" class="hiddenStage"></div>
     <div id="salle" class="hiddenStage"></div>
+    <div id="endStagePopin" class="popin">
+      <h1>Félicitations !</h1>
+      <p>Vous avez fini d'explorer cette salle. Vous pouvez rejouer les points points d'intérêt ou sortir de la salle pour en explorer une autre.</p>
+      <button id="closePopin">D'accord</button>
+    </div>
     <a href="#" id="camBtn" class="onStage"><img src="img/photo-camera.png"></a>
     <a href="#" id="exitBtn" class="onStage"><img src="img/exit.png"></a>
 
@@ -74,7 +79,7 @@ under the License.
       <a href="#" class="next"><img src="img/next.png"></a>
     </div>
     <div id="overlay" class="overlay"></div>
-    <div id="mailPopin">
+    <div id="mailPopin" class="popin">
       <h3>Merci pour votre visite</h3>
       <p>Pour récupérer les souvenirs de votre visite, merci de renseigner votre adresse e-mail dans le champs ci-dessous.</p>
       <!--<p id="validationFail"></p>-->
@@ -110,6 +115,7 @@ under the License.
   </template>
 
   <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/markdown-it.min.js"></script>
   <script type="text/javascript" src="js/data.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
 </body>

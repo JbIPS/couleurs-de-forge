@@ -26,5 +26,8 @@
         "cordova-plugin-file-transfer": "^1.6.3",
         "cordova-plugin-kiosk": "^0.2.2",
         "cordova-plugin-whitelist": "1"
+    },
+    "scripts": {
+        "postinstall": "cp node_modules/markdown-it/dist/markdown-it.min.js www/js/markdown-it.min.js"
     }
 }

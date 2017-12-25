@@ -22,6 +22,7 @@ var STORAGE_KEY = "cdf_pics";
 
 var currentStage = null;
 var pictures = [];
+var md = window.markdownit("commonmark");
 
 function onError(err) {
   window.alert("Error: ", err.code || err);
@@ -73,6 +74,12 @@ var app = {
       for(var idx = 0; idx < stages.length; idx++) {
         stages.item(idx).addEventListener("touchstart", this.launchStage);
       }
+
+      // Init endStagePopin 
+
+      document.getElementById("closePopin").addEventListener("touchstart", function() {
+        document.getElementById("endStagePopin").removeAttribute('style');
+      })
 
       // Init camera
 
@@ -169,6 +176,8 @@ var app = {
         elem.classList.add('key');
         if(spot.locked)
           elem.classList.add('locked');
+        if(spot.classes)
+          elem.classList.add(spot.classes);
         elem.style.cssText = "left: " + spot.position.x + "px; top: " + spot.position.y + 'px;';
         elem.addEventListener("touchstart", function(e){
           e.preventDefault();
@@ -186,6 +195,10 @@ var app = {
             for(var unlocked, i = 0; unlocked = spot.unlock[i]; i++) {
               document.getElementById(unlocked).classList.add("unlocked");
             }
+          }
+          elem.classList.add("visited");
+          if(elem.parentElement.querySelectorAll(".key:not(.visited)") === 0) {
+            document.getElementById("endStagePopin").style.visibility = "visible";
           }
         }, false);
         document.getElementById(spot.stageId).appendChild(elem);
@@ -296,17 +309,19 @@ var app = {
     },
 
     playSound: function(url, text) {
-      var audio = document.getElementById('audio');
       var reader = document.getElementById('reader');
       var contentZone = document.getElementById('slider');
-
+      
       contentZone.innerHTML = "";
-
-      contentZone.innerHTML = text;
+      
+      contentZone.innerHTML = md.render(text);
       reader.classList.add('visible');
-
-      audio.src = url;
-      audio.play();
+      
+      if(url) {
+        var audio = document.getElementById('audio');
+        audio.src = url;
+        audio.play();
+      }
     },
 
     playSideshow: function(content) {
